@@ -1,0 +1,92 @@
+# ===================================================================
+# Standard .gitignore for Java / Maven Projects
+# ===================================================================
+
+# Compiled class files
+*.class
+
+# Log files
+*.log
+logs/
+*.log.*
+
+# Build tool directories (Maven, Gradle)
+target/
+build/
+out/
+
+# Packaged archives
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# Maven specific files
+# Sometimes the Maven wrapper jar is committed, sometimes ignored.
+# Ignore it by default unless you specifically want to commit it.
+.mvn/wrapper/maven-wrapper.jar
+# Maven release plugin files
+release.properties
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+pom.xml.tag
+pom.xml.branch
+
+# IDE specific files
+# IntelliJ
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Eclipse
+.project
+.classpath
+.settings/
+bin/
+
+# NetBeans
+/nbproject/private/
+/build/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+# VS Code
+.vscode/
+# Keep shared VS Code settings if desired
+# !.vscode/settings.json
+# !.vscode/tasks.json
+# !.vscode/launch.json
+# !.vscode/extensions.json
+
+# OS generated files
+# Mac
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Linux / Temporary files
+*~
+*.swp
+*.swo
+
+# Secrets / Sensitive Files (Add your specific files here)
+# *.pem
+# *.key
+# credentials.properties
+# secrets.yml
+
+# Other generated files
+hs_err_pid*
+replay_pid*
+branch.sh
