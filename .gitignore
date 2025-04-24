@@ -1,3 +1,4 @@
+ansible/
 target/
 .vscode/
 .gitignore
