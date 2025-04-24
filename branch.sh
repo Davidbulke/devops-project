@@ -50,9 +50,9 @@ for branch_name in "${BRANCHES_TO_RECREATE[@]}"; do
 
     # 1. Clean Up Locally & Go to Master
     echo "  Cleaning up local branches and switching to master..."
-    echo "  Cleaning potentially untracked target/ directory..."
-    rm -rf target/ # Add this line to remove the target directory
-    git checkout master > /dev/null # Suppress verbose output
+    # echo "  Cleaning potentially untracked target/ directory..." # REMOVE THIS
+    # rm -rf target/ # REMOVE THIS
+    git checkout master > /dev/null # Check out master
     # Delete potentially existing local branches from previous runs, ignore errors if they don't exist
     git branch -D "$branch_name" > /dev/null 2>&1 || true
     git branch -D "$temp_name" > /dev/null 2>&1 || true
@@ -98,12 +98,14 @@ for branch_name in "${BRANCHES_TO_RECREATE[@]}"; do
     # OR use: git push -f origin "$temp_name:$branch_name"
 
     # 7. Cleanup Local Temp Branch
-    echo "  Cleaning up temporary branch $temp_name..."
-    git checkout master > /dev/null # Go back to master before deleting temp
-    git branch -D "$temp_name" > /dev/null
+        echo "  Cleaning up temporary branch $temp_name..."
+        echo "  Cleaning potentially untracked target/ directory before switching back to master..."
+        rm -rf target/
+        git checkout master > /dev/null # Switch back to master
+        git branch -D "$temp_name" > /dev/null # Delete the temp branch
 
-    echo "  Finished processing branch: $branch_name"
-    echo "-------------------------------------"
-done
+        echo "  Finished processing branch: $branch_name"
+        echo "-------------------------------------"
+    done
 
-echo "Branch recreation process complete."
+    echo "Branch recreation process complete."
