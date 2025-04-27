@@ -4,7 +4,7 @@ pipeline {
         maven "MAVEN3.9.9"
         jdk "JDK17"
     }
-    
+
     environment {
         SNAP_REPO = 'vprofile-snapshot'
         RELEASE_REPO = 'vprofile-release'
@@ -21,14 +21,31 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId: 'NexusLogin', usernameVariable: 'NEXUS_USER', passwordVariable: 'NEXUS_PASS')]) {
                     sh 'mvn -s settings.xml -DskipTests install'
                 }
-            } 
-            
-            post { 
+            }
+
+            post {
                 success {
                     echo "Now Archiving."
                     archiveArtifacts artifacts: '**/*.war'
                 }
-            } 
+            }
         }
-    }
-}
+
+        stage('Test') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'NexusLogin', usernameVariable: 'NEXUS_USER', passwordVariable: 'NEXUS_PASS')]) {
+                    sh 'mvn test'
+                }
+            }
+        }
+
+        stage('Checkstyle Analysis') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'NexusLogin', usernameVariable: 'NEXUS_USER', passwordVariable: 'NEXUS_PASS')]) {
+                    sh 'mvn checkstyle:checkstyle'
+                }
+            }
+        } 
+
+    } // End of stages
+} // End of pipeline
